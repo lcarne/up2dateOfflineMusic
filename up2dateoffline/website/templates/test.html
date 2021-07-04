@@ -1,0 +1,4 @@
+<a href="{% url "oauth:begin" "deezer" %}">Deezer</a>
+{% if user.is_authenticated %}
+<p>Welcome {{ request.user }}</p>
+{% endif %}
