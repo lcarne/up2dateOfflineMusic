@@ -17,7 +17,7 @@ import environ
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = environ.Env()
-environ.Env.read_env(env_file=str(BASE_DIR / "up2dateoffline" / ".env"))
+environ.Env.read_env(env_file=str(BASE_DIR / ".env"))
 
 
 # Quick-start development settings - unsuitable for production
@@ -77,11 +77,12 @@ WSGI_APPLICATION = 'up2dateoffline.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'OPTIONS': {
+            'read_default_file': BASE_DIR / 'mysql.cnf',
+        },
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
