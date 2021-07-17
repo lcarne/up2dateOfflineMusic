@@ -1,5 +1,6 @@
-up2dateOfflineMusic/__pycache__/
+.idea/
+db.sqlite3
+__pycache__/
+.env/
+.env
 /venv/
-/up2dateoffline/config.yaml
-/up2dateoffline/db.sqlite3
-/.idea/

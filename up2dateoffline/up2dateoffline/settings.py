@@ -11,23 +11,21 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-import yaml
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-S = ''
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+env = environ.Env()
+environ.Env.read_env(env_file=str(BASE_DIR / "up2dateoffline" / ".env"))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-sfth%o#g70^wo)sxy5@5784(4!d&8isbiw#b%5t(o8!w20u#u%'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+SECRET_KEY = env("SECRET_KEY")
+DEBUG = env.bool("DEBUG")
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
 
 # Application definition
@@ -118,20 +116,14 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.2/howto/static-files/
-
-STATIC_URL = '/static/'
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-YAML_CONFIG = yaml.safe_load(open("config.yaml", 'r'))
 SOCIAL_AUTH_URL_NAMESPACE = 'oauth'
-SOCIAL_AUTH_DEEZER_KEY = YAML_CONFIG.get('SOCIAL_AUTH_DEEZER_KEY')
-SOCIAL_AUTH_DEEZER_SECRET = YAML_CONFIG.get('SOCIAL_AUTH_DEEZER_SECRET')
+SOCIAL_AUTH_DEEZER_KEY = env('SOCIAL_AUTH_DEEZER_KEY')
+SOCIAL_AUTH_DEEZER_SECRET = env('SOCIAL_AUTH_DEEZER_SECRET')
 SOCIAL_AUTH_DEEZER_SCOPE = ['basic_access', 'email', 'offline_access', 'manage_library', 'delete_library']
 LOGIN_REDIRECT_URL = '/profile'
 LOGOUT_REDIRECT_URL = '/'
@@ -160,3 +152,12 @@ SOCIAL_AUTH_DISCONNECT_PIPELINE = (
     'social_core.pipeline.disconnect.revoke_tokens',
     'social_core.pipeline.disconnect.disconnect',
 )
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.2/howto/static-files/
+
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'mediafiles'
