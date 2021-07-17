@@ -82,6 +82,9 @@ DATABASES = {
         'USER': env('SQL_USER'),
         'PASSWORD': env('SQL_PASSWORD'),
         'HOST': env('SQL_HOST'),
+        'OPTIONS': {
+            'sql_mode': 'traditional',
+        },
     }
 }
 
