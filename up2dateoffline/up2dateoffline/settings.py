@@ -77,10 +77,11 @@ WSGI_APPLICATION = 'up2dateoffline.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'OPTIONS': {
-            'read_default_file': str(BASE_DIR / 'mysql.cnf'),
-        },
+        'ENGINE': env('SQL_ENGINE'),
+        'NAME': env('SQL_NAME'),
+        'USER': env('SQL_USER'),
+        'PASSWORD': env('SQL_PASSWORD'),
+        'HOST': env('SQL_HOST'),
     }
 }
 
